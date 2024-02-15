@@ -1,15 +1,14 @@
-#include "../lib/includes.hpp"
-#include "../lib/interface.hpp"
 #include "../lib/error.hpp"
+#include "../lib/interface.hpp"
+#include "../lib/parcel.hpp"
+#include "../lib/app.hpp"
 
 int main(int argc, char *argv[])
 {
-	_Assert(argc > 1, "too few arguments, try --help\n");
+	_Assert(argc > 1, "too few arguments, try --help");
 
-	for(std::string line; ; std::getline(std::cin, line))
-	{
-		Print("Ready.\n");
-	}
+	Application MainApp;
+	MainApp.run();
 
 	return 0;
 }

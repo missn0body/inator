@@ -5,6 +5,8 @@
 #include <string>
 #include <regex>
 #include <format>
+#include <vector>
+#include <memory>
 #include <bitset>
 #include <source_location>
 
