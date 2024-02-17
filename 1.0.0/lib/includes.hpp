@@ -5,7 +5,7 @@
 #include <string>
 #include <regex>
 #include <format>
-#include <vector>
+#include <deque>
 #include <memory>
 #include <bitset>
 #include <source_location>

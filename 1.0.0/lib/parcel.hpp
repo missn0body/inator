@@ -2,6 +2,7 @@
 #define inator__parcel__hpp
 
 #include "includes.hpp"
+#include "interface.hpp"
 
 enum { ANSI = (1 << 1), VERBOSE = (1 << 2), EXIT = (1 << 3), CALC = (1 << 4), READ = (1 << 5) };
 
