@@ -3,17 +3,33 @@
 
 class A
 {
-	public: virtual void hm() = 0;
+	private:
+		std::string what;
+
+	public:
+		A(void) : what("(null)") 		{}
+		A(const std::string &what) : what(what) {}
+
+		std::string name(void) const { return this->what; }
+
+		virtual void handleInput() = 0;
+		virtual void display() = 0;
+
+		inline void run() { this->display(); this->handleInput(); };
 };
 
 class B : public A
 {
-	public: virtual void hm() override { Print("Inherited\n"); }
+	public:
+		virtual void handleInput() override { Print("B's handleInput()\n"); }
+		virtual void display() override	    { Print("B's display()\n"); }
 };
 
 class C : public A
 {
-	public: virtual void hm() override { Print("Second inherited\n"); }
+	public:
+		virtual void handleInput() override { Print("C's handleInput()\n"); }
+		virtual void display() override	    { Print("C's display()\n"); }
 };
 
 int main(void)
@@ -25,7 +41,7 @@ int main(void)
 
 	while(!States.empty())
 	{
-		States.front()->hm();
+		States.front()->run();
 		States.erase(States.begin());
 	}
 
