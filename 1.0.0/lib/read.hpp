@@ -7,6 +7,10 @@
 
 class ReadLoop : public State
 {
+	private:
+		void intro();
+		void help();
+
 	public:
 		void display() override;
 		void handleInput() override;
