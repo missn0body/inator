@@ -8,7 +8,7 @@
 template<unsigned T = 8>
 [[ __noreturn__ ]] void error(const std::source_location &loc, std::string &&mes, const parcel<T> &status)
 {
-	if(status[ANSI])
+	if(status.test(ANSI))
 	{
 		Color(std::cerr, { 101, 30 }, "[%s:%d] "_p, loc.file_name(), loc.line());
 		fPrint(std::cerr, "%s\n"_p, mes);

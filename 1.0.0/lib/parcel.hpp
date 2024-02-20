@@ -4,7 +4,7 @@
 #include "includes.hpp"
 #include "interface.hpp"
 
-enum { ANSI = (1 << 1), VERBOSE = (1 << 2), EXIT = (1 << 3), CALC = (1 << 4), READ = (1 << 5) };
+enum { ANSI, VERBOSE, EXIT, CALC, READ };
 
 template<unsigned T = 8>
 struct parcel
@@ -15,10 +15,10 @@ struct parcel
 	parcel(void) : info("(null)"), internals(0x00) {}
 	parcel(const std::string &what) : info(what), internals(0x00) {}
 
-	bool operator[](std::size_t index) const 	{ return this->internals.test(index); }
+	bool test(std::size_t index) const 	{ return this->internals.test(index); }
 
-	void set(std::size_t index)			{ this->internals.set(index); }
-	void unset(std::size_t index)			{ this->internals.unset(index); }
+	void set(std::size_t index)		{ this->internals.set(index); }
+	void unset(std::size_t index)		{ this->internals.set(index, false); }
 
 	inline void spill(void) { Print("parcel reports: \"%s\"\n"_p, this->info); }
 };

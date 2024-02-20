@@ -31,5 +31,7 @@ void Application::process()
 	{
 		this->States.front()->run(this->mailbox);
 		this->pop();
+
+		if(this->mailbox->test(EXIT)) return;
 	}
 }

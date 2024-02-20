@@ -5,9 +5,11 @@
 #include <string>
 #include <regex>
 #include <format>
-#include <deque>
+#include <vector>
 #include <memory>
 #include <bitset>
+#include <random>
+#include <chrono>
 #include <source_location>
 
 #endif
