@@ -2,11 +2,13 @@
 #include "../lib/read.hpp"
 #include "../lib/includes.hpp"
 #include "../lib/interface.hpp"
+#include "../lib/parcel.hpp"
 
 int main(void)
 {
-	Application inator;
-	inator.push(std::make_unique<ReadLoop>());
+	Application inator(std::make_unique<ReadLoop>());
+	inator.send(std::make_unique<parcel<8>>(MainParcel));
+
 	inator.process();
 
 	return 0;
