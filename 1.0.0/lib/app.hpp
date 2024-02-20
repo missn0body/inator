@@ -1,6 +1,8 @@
 #ifndef inator__state__app__hpp
 #define inator__state__app__hpp
 
+#include "interface.hpp"
+#include "error.hpp"
 #include "state.hpp"
 #include "parcel.hpp"
 

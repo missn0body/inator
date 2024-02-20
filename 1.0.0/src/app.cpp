@@ -25,9 +25,11 @@ void Application::pop()
 
 void Application::process()
 {
+	if(this->mailbox == nullptr) _Error("parcel not found\n");
+
 	while(!this->States.empty())
 	{
-		this->States.front()->run();
+		this->States.front()->run(this->mailbox);
 		this->pop();
 	}
 }

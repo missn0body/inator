@@ -26,13 +26,14 @@ void ReadLoop::help()
 	return;
 }
 
-void ReadLoop::display()
+void ReadLoop::display(std::unique_ptr<parcel<8>> &mail)
 {
 	this->intro();
+	mail->spill();
 	return;
 }
 
-void ReadLoop::handleInput()
+void ReadLoop::handleInput(std::unique_ptr<parcel<8>> &mail)
 {
 	std::string buffer;
 	while(std::cin.good())

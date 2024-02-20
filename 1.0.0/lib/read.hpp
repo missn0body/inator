@@ -12,8 +12,8 @@ class ReadLoop : public State
 		void help();
 
 	public:
-		void display() override;
-		void handleInput() override;
+		void display(std::unique_ptr<parcel<8>> &mail) override;
+		void handleInput(std::unique_ptr<parcel<8>> &mail) override;
 };
 
 #endif

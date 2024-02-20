@@ -2,6 +2,7 @@
 #define inator__state__state__hpp
 
 #include "includes.hpp"
+#include "parcel.hpp"
 
 class State
 {
@@ -12,10 +13,10 @@ class State
 		State() : what("(null)") 			{}
 		State(const std::string &name) : what(name) 	{}
 
-		virtual void display() = 0;
-		virtual void handleInput() = 0;
+		virtual void display(std::unique_ptr<parcel<8>> &mail) = 0;
+		virtual void handleInput(std::unique_ptr<parcel<8>> &mail) = 0;
 
-		void run() 					{ this->display(); this->handleInput(); }
+		void run(std::unique_ptr<parcel<8>> &mail)	{ this->display(mail); this->handleInput(mail); }
 };
 
 #endif
