@@ -10,6 +10,5 @@ int main(void)
 	inator.send(std::make_unique<parcel<8>>(MainParcel));
 
 	inator.process();
-
 	return 0;
 }

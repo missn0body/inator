@@ -3,6 +3,10 @@
 
 #include "includes.hpp"
 
+// This is from an earlier project that never really got off the ground,
+// and really, it shamelessly copies a part from Hopson's basic SFML game engine
+// I use it because it happens to be terse and really easy to use, compared
+// with the often wordy syntax for PRNGs that C++ offers
 template<typename engine = std::mt19937>
 class Random
 {

@@ -6,6 +6,10 @@
 
 enum { ANSI, VERBOSE, EXIT, CALC, READ };
 
+// It's cool that C++ now has this std::bitset<T> object, considering
+// that not everyone is used to seeing bitwise operations a lot. I still
+// put it in a wrapper that also holds a string, so that, for example, we
+// can carry an inputted string to be parsed.
 template<unsigned T = 8>
 struct parcel
 {
