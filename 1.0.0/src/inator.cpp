@@ -7,7 +7,7 @@
 int main(void)
 {
 	Application inator(std::make_unique<ReadLoop>());
-	inator.send(std::make_unique<parcel<8>>(MainParcel));
+	inator.send(std::make_shared<parcel<8>>(MainParcel));
 
 	inator.process();
 	return 0;

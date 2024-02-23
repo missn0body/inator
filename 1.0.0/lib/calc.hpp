@@ -1,16 +1,13 @@
-#ifndef inator__state__read__hpp
-#define inator__state__read__hpp
+#ifndef inator__calc__hpp
+#define inator__calc__hpp
 
 #include "includes.hpp"
 #include "interface.hpp"
+#include "parcel.hpp"
 #include "state.hpp"
 
-class ReadLoop : public State
+class Calculate : public State
 {
-	private:
-		void intro();
-		void help();
-
 	public:
 		void display(std::shared_ptr<parcel<8>> &mail) override;
 		void handleInput(std::shared_ptr<parcel<8>> &mail) override;

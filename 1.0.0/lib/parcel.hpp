@@ -4,7 +4,7 @@
 #include "includes.hpp"
 #include "interface.hpp"
 
-enum { ANSI, VERBOSE, EXIT, CALC, READ };
+enum { ANSI, VERBOSE, EXIT, SWITCH, CALC, READ };
 
 // It's cool that C++ now has this std::bitset<T> object, considering
 // that not everyone is used to seeing bitwise operations a lot. I still

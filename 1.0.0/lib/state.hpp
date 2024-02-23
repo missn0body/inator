@@ -13,10 +13,10 @@ class State
 		State() : what("(null)") 			{}
 		State(const std::string &name) : what(name) 	{}
 
-		virtual void display(std::unique_ptr<parcel<8>> &mail) = 0;
-		virtual void handleInput(std::unique_ptr<parcel<8>> &mail) = 0;
+		virtual void display(std::shared_ptr<parcel<8>> &mail) = 0;
+		virtual void handleInput(std::shared_ptr<parcel<8>> &mail) = 0;
 
-		void run(std::unique_ptr<parcel<8>> &mail)	{ this->display(mail); this->handleInput(mail); }
+		void run(std::shared_ptr<parcel<8>> &mail)	{ this->display(mail); this->handleInput(mail); }
 };
 
 #endif

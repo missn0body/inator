@@ -1,14 +1,14 @@
 #include "../lib/app.hpp"
 
-Application::Application(std::unique_ptr<parcel<8>> &&mail) 	{ this->mailbox = std::move(mail); }
+Application::Application(std::shared_ptr<parcel<8>> &&mail) 	{ this->mailbox = std::move(mail); }
 Application::Application(std::unique_ptr<State> &&input) 	{ this->States.push_back(std::move(input)); }
-Application::Application(std::unique_ptr<State> &&input, std::unique_ptr<parcel<8>> &&mail)
+Application::Application(std::unique_ptr<State> &&input, std::shared_ptr<parcel<8>> &&mail)
 {
 	this->mailbox = std::move(mail);
 	this->States.push_back(std::move(input));
 }
 
-void Application::send(std::unique_ptr<parcel<8>> &&mail)
+void Application::send(std::shared_ptr<parcel<8>> &&mail)
 {
 	this->mailbox = std::move(mail);
 }
@@ -31,6 +31,12 @@ void Application::process()
 	{
 		this->States.front()->run(this->mailbox);
 		this->pop();
+
+		if(this->mailbox->test(SWITCH))
+		{
+			if(this->mailbox->test(READ)) this->States.push_back(std::make_unique<ReadLoop>());
+			if(this->mailbox->test(CALC)) this->States.push_back(std::make_unique<Calculate>());
+		}
 
 		if(this->mailbox->test(EXIT)) return;
 	}
