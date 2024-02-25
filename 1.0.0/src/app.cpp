@@ -32,6 +32,12 @@ void Application::process()
 		this->States.front()->run(this->mailbox);
 		this->pop();
 
+		// TODO: I don't like how this currently implements state switching.
+		// Something about the derived states having to share space with the
+		// internals of the Application object just rubs me the wrong way, it
+		// makes something like this a little harder to use for other projects
+		// I'm thinking an Application object should be passed a container of State
+		// objects that it can reference when being asked to switch to a specific State
 		if(this->mailbox->test(SWITCH))
 		{
 			if(this->mailbox->test(READ)) this->States.push_back(std::make_unique<ReadLoop>());

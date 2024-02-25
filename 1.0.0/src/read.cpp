@@ -38,8 +38,10 @@ void ReadLoop::help()
 
 void ReadLoop::display(std::shared_ptr<parcel<8>> &mail)
 {
+	if(mail->test(SWITCH)) mail->unset(SWITCH);
+	else this->intro();
+
 	if(mail->test(READ) == false) mail->set(READ);
-	this->intro();
 	return;
 }
 
@@ -91,15 +93,21 @@ void ReadLoop::handleInput(std::shared_ptr<parcel<8>> &mail)
 		else if (m("\\s*[Aa]nsi\\s+[Oo]ff\\s*"))	{ mail->unset(ANSI); }
 		else if (m("\\s*[Vv]erbose\\s+[Oo]n\\s*"))  	{ mail->set(VERBOSE); }
 		else if (m("\\s*[Vv]erbose\\s+[Oo]ff\\s*")) 	{ mail->unset(VERBOSE); }
-		else if (m("\\d.*"))
+		else if (m("[\\d()].*"))
 		{
+			// TODO: see src/calc.cpp
 			if(mail->test(VERBOSE)) Print("Looks like you've typed some sort of expression.\n");
+
+			mail->info = buffer;
+
 			mail->unset(READ);
 			mail->set(CALC);
 			mail->set(SWITCH);
 		}
 		else
 		{
+			// TODO: I should probably make an interface.cpp printing function with a parcel argument so
+			// I don't have to write these ANSI tests
 			if(mail->test(ANSI)) Color(YELLOW, "%s\n"_p, pardon[rng.randomInt(0, pardon.size() - 1)]);
 			else 		     Print("%s\n"_p, pardon[rng.randomInt(0, pardon.size() - 1)]);
 		}

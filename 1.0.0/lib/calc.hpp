@@ -8,6 +8,9 @@
 
 class Calculate : public State
 {
+	private:
+		void shunt(std::shared_ptr<parcel<8>> &mail);
+
 	public:
 		void display(std::shared_ptr<parcel<8>> &mail) override;
 		void handleInput(std::shared_ptr<parcel<8>> &mail) override;

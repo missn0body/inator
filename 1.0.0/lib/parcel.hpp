@@ -23,8 +23,6 @@ struct parcel
 
 	void set(std::size_t index)		{ this->internals.set(index); }
 	void unset(std::size_t index)		{ this->internals.set(index, false); }
-
-	inline void spill(void) { Print("parcel reports: \"%s\"\n"_p, this->info); }
 };
 
 static parcel MainParcel;
