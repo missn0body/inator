@@ -25,7 +25,8 @@ void ReadLoop::help()
 			f("ansi off", "turns off ANSI colors"),
 			f("verbose on", "displays verbose information and debugging statements"),
 			f("verbose off", "turns off verbose mode"),
-			f("(exp)", "a math expression consisting of numbers and operators") })
+			f("(number)", "any given decimal number, which is loaded into internal buffer"),
+			f("(OP) (number)", "A mathematical operation to be preformed onto internal buffer using the given decimal") })
 	{
 		// With the longer commands, the tab character kind of breaks, so for clean cut columns
 		// of text, some arbitrary value minus the length of the command will provide adequate
@@ -48,6 +49,8 @@ void ReadLoop::display(std::shared_ptr<parcel<8>> &mail)
 void ReadLoop::handleInput(std::shared_ptr<parcel<8>> &mail)
 {
 	std::string buffer, head, foot, pattern;
+	std::smatch results;
+
 	// I like to call the user a stupid smelly dumb head whenever I can :3
 	std::vector<std::string> pardon = { "huh?", "pardon?", "excuse me?", "que?", "gesundheit?", "bless you?", "what?", "eh?" };
 
@@ -72,7 +75,7 @@ void ReadLoop::handleInput(std::shared_ptr<parcel<8>> &mail)
 	auto m = [&](const std::string &rx)
 	{
 		if(mail->test(VERBOSE)) Print("%s\n"_p, rx);
-		return std::regex_match(buffer, std::regex(rx));
+		return std::regex_match(buffer, results, std::regex(rx));
 	};
 
 	while(std::cin.good())
@@ -93,16 +96,41 @@ void ReadLoop::handleInput(std::shared_ptr<parcel<8>> &mail)
 		else if (m("\\s*[Aa]nsi\\s+[Oo]ff\\s*"))	{ mail->unset(ANSI); }
 		else if (m("\\s*[Vv]erbose\\s+[Oo]n\\s*"))  	{ mail->set(VERBOSE); }
 		else if (m("\\s*[Vv]erbose\\s+[Oo]ff\\s*")) 	{ mail->unset(VERBOSE); }
-		else if (m("[\\d()].*"))
+		else if (m("([+\\-*\\/\\^])(\\s+)?(\\d+(\\.\\d*)?|\\.\\d+)([Ee][\\+\\-]?\\d+)?"))
 		{
 			// TODO: see src/calc.cpp
 			if(mail->test(VERBOSE)) Print("Looks like you've typed some sort of expression.\n");
+			if(this->runningTotal == 0.00)
+			{
+				if(mail->test(ANSI))	Color(RED, "No operand loaded. Please type a number than press enter to load.\n");
+				else			Print("No operand loaded. Please type a number than press enter to load.\n");
+				continue;
+			}
 
+			switch(results.str(1)[0])
+			{
+				case '+': this->runningTotal += std::stod(results.str(3)); break;
+				case '-': this->runningTotal -= std::stod(results.str(3)); break;
+				case '*': this->runningTotal *= std::stod(results.str(3)); break;
+				case '/': this->runningTotal /= std::stod(results.str(3)); break;
+				case '^': this->runningTotal = std::pow(this->runningTotal, std::stod(results.str(3))); break;
+			}
+
+			if(mail->test(ANSI))	Color(GREEN, "%d\n"_p, this->runningTotal);
+			else			Print("%d\n"_p, this->runningTotal);
+
+			/*
 			mail->info = buffer;
 
 			mail->unset(READ);
 			mail->set(CALC);
 			mail->set(SWITCH);
+			*/
+		}
+		else if (m("(\\d+)"))
+		{
+			Print("Loading \"%s\"...\n"_p, results.str(1));
+			this->runningTotal = std::stod(results.str(1));
 		}
 		else
 		{

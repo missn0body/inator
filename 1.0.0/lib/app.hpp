@@ -6,9 +6,6 @@
 #include "state.hpp"
 #include "parcel.hpp"
 
-#include "read.hpp"
-#include "calc.hpp"
-
 class Application
 {
 	private:

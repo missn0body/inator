@@ -6,6 +6,7 @@
 #include <regex>
 #include <format>
 #include <vector>
+#include <unordered_map>
 #include <memory>
 #include <bitset>
 #include <random>

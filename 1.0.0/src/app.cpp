@@ -38,11 +38,6 @@ void Application::process()
 		// makes something like this a little harder to use for other projects
 		// I'm thinking an Application object should be passed a container of State
 		// objects that it can reference when being asked to switch to a specific State
-		if(this->mailbox->test(SWITCH))
-		{
-			if(this->mailbox->test(READ)) this->States.push_back(std::make_unique<ReadLoop>());
-			if(this->mailbox->test(CALC)) this->States.push_back(std::make_unique<Calculate>());
-		}
 
 		if(this->mailbox->test(EXIT)) return;
 	}
